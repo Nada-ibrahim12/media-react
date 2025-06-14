@@ -11,11 +11,12 @@ export default function Welcome() {
       className="min-vh-100 d-flex align-items-center justify-content-center"
       style={{
         background: "linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%)",
+        paddingTop: "40px",
       }}
     >
       <div
         className="shadow-lg rounded-4 overflow-hidden d-flex"
-        style={{ width: "800px", height: "500px" }}
+        style={{ width: "800px", height: "600px" }}
       >
         <motion.div
           animate={{ flex: active === "register" ? 8 : 2 }}

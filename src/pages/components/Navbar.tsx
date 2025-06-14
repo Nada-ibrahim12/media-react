@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <nav
-      className="navbar navbar-expand-lg px-4 py-3 shadow-sm"
+      className="navbar navbar-expand-lg px-4 py-3 shadow-sm fixed-top"
       style={{
+        height: "70px",
+        zIndex: 1000,
         background: "linear-gradient(to right, #4e54c8, #8f94fb)",
       }}
     >
@@ -35,7 +37,7 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex gap-3 align-items-center">
             <li className="nav-item">
               <Link
-                to="/"
+                to="/home"
                 className="nav-link text-white fw-medium px-3 py-2 rounded-3"
                 style={{
                   transition: "all 0.3s ease",
