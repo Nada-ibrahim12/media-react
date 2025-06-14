@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MediaCard from "./components/MediaCard";
 import axios from "axios";
 
