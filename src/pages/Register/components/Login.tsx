@@ -44,6 +44,7 @@ export default function Login() {
         setLoading(false);
       });
   };
+  console.log(error);
   const validation = () => {
     if (!formData.email || !formData.password) {
       return "Please fill in all fields";
