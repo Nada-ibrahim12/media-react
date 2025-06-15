@@ -15,11 +15,12 @@ export default function Welcome() {
       }}
     >
       <div
-        className="shadow-lg rounded-4 overflow-hidden d-flex"
-        style={{ width: "800px", height: "600px" }}
+        className="shadow-lg rounded-4 overflow-hidden d-flex w-75"
+        style={{ maxWidth: "900px", height: "600px"
+         }}
       >
         <motion.div
-          animate={{ flex: active === "register" ? 8 : 2 }}
+          animate={{ flex: active === "register" ? 9 : 1 }}
           transition={{ duration: 0.6 }}
           className="d-flex flex-column p-4"
           style={{
@@ -47,7 +48,7 @@ export default function Welcome() {
         </motion.div>
 
         <motion.div
-          animate={{ flex: active === "login" ? 6 : 4 }}
+          animate={{ flex: active === "login" ? 7 : 2 }}
           transition={{ duration: 0.6 }}
           className="d-flex flex-column p-4 text-white"
           style={{
