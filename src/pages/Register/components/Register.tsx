@@ -42,7 +42,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/register",
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         formData
       );
       console.log("Registration successful:", response.data);
@@ -114,7 +114,7 @@ export default function Register() {
           "string.empty": "Confirm Password is required",
         }),
     });
-    
+
     const { error } = schema.validate(formData, { abortEarly: false });
     return error ? error.details : null;
   };

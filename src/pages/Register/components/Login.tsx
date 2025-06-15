@@ -1,8 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -30,12 +29,12 @@ export default function Login() {
       return;
     }
     axios
-      .post("http://localhost:3000/auth/login", formData)
+      .post(`${import.meta.env.VITE_API_URL}/auth/login`, formData)
       .then((response) => {
-        console.log("Login successful:", response.data);
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("user", JSON.stringify(response.data.userId));
         setLoading(false);
+        console.log("Login successful:", response.data);
         navigate("/home");
       })
       .catch((error) => {

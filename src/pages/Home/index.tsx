@@ -2,22 +2,10 @@ import { useEffect, useState } from "react";
 import MediaCard from "./components/MediaCard";
 import axios from "axios";
 
-interface MediaItem {
-  id: string;
-  title?: string;
-  fileUrl?: string;
-  type?: string;
-  likes?: number;
-  user: {
-    firstName: string;
-    lastName: string;
-  };
-}
-
 export default function Home() {
-  const [media, setMedia] = useState<MediaItem[]>([]);
+  const [media, setMedia] = useState([]);
   const [error, setError] = useState<unknown>(null);
-  const apiUrl = "http://localhost:3000/media";
+  const apiUrl = `${import.meta.env.VITE_API_URL}/media`;
 
   async function fetchMedia() {
     try {
@@ -29,20 +17,17 @@ export default function Home() {
       setError(error);
     }
   }
-
   useEffect(() => {
     fetchMedia();
   }, []);
 
-  if (error) {
-    return (
-      <div className="text-center mt-5">
-        <h4>Error fetching media data:</h4>
-        <p>{error instanceof Error ? error.message : "Unknown error"}</p>
-      </div>
-    );
-  }
+  const handkeDeleteSuccess = (deletedId: string) => {
+    setMedia((prevMedia) => prevMedia.filter((item: any) => item.id !== deletedId));
+  };
 
+  if (error) {
+    return <div>Error fetching media data: {error instanceof Error ? error.message : "Unknown error"}</div>;
+  }
   return (
     <div className="container" style={{ paddingTop: "70px" }}>
       {media.length === 0 ? (
@@ -51,7 +36,9 @@ export default function Home() {
           <p>Please upload some media to see it here.</p>
         </div>
       ) : (
-        media.map((item) => <MediaCard key={item.id} {...item} />)
+        media.map((item: any, idx: number) => (
+          <MediaCard key={item.id || idx} {...item} onDeleteSuccess={handkeDeleteSuccess} />
+        ))
       )}
     </div>
   );

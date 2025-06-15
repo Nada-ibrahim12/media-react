@@ -1,15 +1,17 @@
 import axios from "axios";
-import React from "react";
+import {useState, useRef, type ChangeEvent, type FormEvent} from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
-export default function Upload() {
-  const [error, setError] = React.useState<string | null>(null);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [title, setTitle] = React.useState<string>("");
-  const [file, setFile] = React.useState<File | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+export default function Upload() {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [, setSuccess] = useState<string | null>(null);
+
+  function handleFile(e: ChangeEvent<HTMLInputElement>) {
     const selectedFile = e.target.files ? e.target.files[0] : null;
     if (selectedFile) {
       setFile(selectedFile);
@@ -19,12 +21,12 @@ export default function Upload() {
     }
   }
 
-  function handleTitleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleTitleChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setTitle(e.target.value);
     if (error) setError(null);
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
 
@@ -48,7 +50,7 @@ export default function Upload() {
       const token = localStorage.getItem("token");
       console.log("Token:", token);
       const response = await axios.post(
-        "http://localhost:3000/media/upload",
+        `${import.meta.env.VITE_API_URL}/media/upload`,
         formData,
         {
           headers: {
@@ -58,7 +60,8 @@ export default function Upload() {
         }
       );
       console.log("File uploaded successfully:", response.data);
-      alert("File uploaded successfully!");
+      setSuccess("File uploaded successfully!");
+      setTimeout(() => setSuccess(null), 3000);
       setTitle("");
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -127,11 +130,15 @@ export default function Upload() {
               />
             </label>
             {file && <p>Selected file: {file.name}</p>}
-            {error && (
+            {error ? (
               <div className="alert alert-danger" role="alert">
                 {error}
               </div>
-            )}
+            ) : file ? (
+              <div className="alert alert-success" role="alert">
+                File selected: {file.name}
+              </div>
+            ) : null}
 
             <div className="mb-4">
               <label htmlFor="title" className="form-label fw-medium">
