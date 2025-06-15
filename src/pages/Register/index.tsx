@@ -8,7 +8,7 @@ export default function Welcome() {
 
   return (
     <div
-      className="min-vh-100 d-flex align-items-center justify-content-center"
+      className="min-vh-100 d-flex align-items-center justify-content-center mt-lg-0 mt-md-2 mt-sm-5"
       style={{
         background: "linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%)",
         paddingTop: "40px",
@@ -16,7 +16,7 @@ export default function Welcome() {
     >
       <div
         className="shadow-lg rounded-4 overflow-hidden d-flex w-75"
-        style={{ maxWidth: "900px", height: "600px"
+        style={{ maxWidth: "900px"
          }}
       >
         <motion.div
